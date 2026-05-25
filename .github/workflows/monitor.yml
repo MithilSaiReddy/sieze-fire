@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Check server
         run: |
-          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://anon.sureshandco.com)
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://thiswebsitedoesnotexist12345.com)
           echo "Status: $STATUS"
           if [ "$STATUS" != "200" ]; then
             curl -X POST "https://discord.com/api/webhooks/1508334542103122072/xNjRT2H-wlTewkbyiSEXdzLSWlVU2chSrQh6H_QbootaDrbDKr3Gu5b4exWpzvmMBRPu" \
