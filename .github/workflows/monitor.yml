@@ -1,0 +1,21 @@
+name: Server Monitor
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check server
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" ${{ secrets.CHECK_URL }})
+          echo "Status: $STATUS"
+          if [ "$STATUS" != "200" ]; then
+            curl -X POST ${{ secrets.WEBHOOK_URL }} \
+              -H "Content-Type: application/json" \
+              -d "{\"content\": \"🚨 **Server is DOWN!** Status code: \`$STATUS\`\"}"
+          else
+            echo "Server is UP"
+          fi
