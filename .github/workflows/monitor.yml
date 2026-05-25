@@ -9,11 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check server
+        env:
+          CHECK_URL: "https://thiswebsitedoesnotexist12345.com"
+          WEBHOOK_URL: "YOUR_NEW_WEBHOOK_URL"
         run: |
-          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://thiswebsitedoesnotexist12345.com)
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" "$CHECK_URL")
           echo "Status: $STATUS"
           if [ "$STATUS" != "200" ]; then
-            curl -X POST "https://discord.com/api/webhooks/1508334542103122072/xNjRT2H-wlTewkbyiSEXdzLSWlVU2chSrQh6H_QbootaDrbDKr3Gu5b4exWpzvmMBRPu" \
+            curl -X POST "$WEBHOOK_URL" \
               -H "Content-Type: application/json" \
               -d "{\"content\": \"🚨 **Server is DOWN!** Status code: \`$STATUS\`\"}"
           else
