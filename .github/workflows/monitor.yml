@@ -11,7 +11,7 @@ jobs:
       - name: Check server
         env:
           CHECK_URL: "https://thiswebsitedoesnotexist12345.com"
-          WEBHOOK_URL: "YOUR_NEW_WEBHOOK_URL"
+          WEBHOOK_URL: "https://discord.com/api/webhooks/1508334542103122072/xNjRT2H-wlTewkbyiSEXdzLSWlVU2chSrQh6H_QbootaDrbDKr3Gu5b4exWpzvmMBRPu"
         run: |
           STATUS=$(curl -o /dev/null -s -w "%{http_code}" "$CHECK_URL")
           echo "Status: $STATUS"
